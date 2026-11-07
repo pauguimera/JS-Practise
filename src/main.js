@@ -1,5 +1,6 @@
 import './style.css';
 import { getUsers, createUser, updateUser } from './firebase.js';
+import { initGame } from './game.js';
 
 const form = document.getElementById('user-form');
 const usernameInput = document.getElementById('username');
@@ -40,3 +41,5 @@ form.addEventListener('submit', async function (event) {
 if (sessionStorage.getItem('user') !== null) {
   showGame();
 }
+
+initGame();
