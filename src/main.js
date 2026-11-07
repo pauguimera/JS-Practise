@@ -4,6 +4,12 @@ import { getUsers, createUser, updateUser } from './firebase.js';
 const form = document.getElementById('user-form');
 const usernameInput = document.getElementById('username');
 const emailInput = document.getElementById('email');
+const game = document.getElementById('game');
+
+function showGame() {
+  form.hidden = true;
+  game.hidden = false;
+}
 
 form.addEventListener('submit', async function (event) {
   event.preventDefault();
@@ -11,8 +17,8 @@ form.addEventListener('submit', async function (event) {
   const email = emailInput.value.trim();
 
   const users = await getUsers();
+
   let userId = null;
-  
   if (users !== null) {
     for (const id in users) {
       if (users[id].email === email) {
@@ -20,11 +26,17 @@ form.addEventListener('submit', async function (event) {
       }
     }
   }
+
   if (userId !== null) {
     await updateUser(userId, username);
   } else {
     userId = await createUser(username, email);
   }
+
   sessionStorage.setItem('user', userId);
-  console.log('Usuari registrat amb id:', userId);
+  showGame();
 });
+
+if (sessionStorage.getItem('user') !== null) {
+  showGame();
+}
