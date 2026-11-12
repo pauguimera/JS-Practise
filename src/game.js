@@ -1,4 +1,6 @@
 import { getPokemonImage } from './pokeapi.js';
+import { createGame } from './firebase.js';
+import { showRanking } from './ranking.js';
 
 const gameForm = document.getElementById('game-form');
 const cardsInput = document.getElementById('cards-number');
@@ -40,6 +42,12 @@ function startTimer() {
 
 export function stopTimer() {
   clearInterval(timerInterval);
+}
+
+async function saveWin() {
+  const userId = sessionStorage.getItem('user');
+  const gameId = await createGame(userId, seconds, totalPairs * 2);
+  showRanking(gameId);
 }
 
 function getRandomIds(amount) {
@@ -93,6 +101,7 @@ function handleCardClick(event) {
 
     if (matchedPairs === totalPairs) {
       stopTimer();
+      saveWin();
     }
   } else {
     lockBoard = true;

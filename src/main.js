@@ -1,6 +1,7 @@
 import './style.css';
 import { getUsers, createUser, updateUser } from './firebase.js';
 import { initGame } from './game.js';
+import { showRanking } from './ranking.js';
 
 const form = document.getElementById('user-form');
 const usernameInput = document.getElementById('username');
@@ -10,6 +11,7 @@ const game = document.getElementById('game');
 function showGame() {
   form.hidden = true;
   game.hidden = false;
+  showRanking(null);
 }
 
 form.addEventListener('submit', async function (event) {
