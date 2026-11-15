@@ -44,4 +44,10 @@ if (sessionStorage.getItem('user') !== null) {
   showGame();
 }
 
+const logoutBtn = document.getElementById('logout-btn');
+
+logoutBtn.addEventListener('click', function () {
+  sessionStorage.removeItem('user');
+  location.reload();
+});
 initGame();
