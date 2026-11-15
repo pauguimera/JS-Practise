@@ -34,7 +34,7 @@ input {
   border-radius: 6px;
 }
 
-#user-form {
+#user-form:not([hidden]) {
   display: flex;
   flex-direction: column;
   gap: 10px;
